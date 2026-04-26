@@ -9,3 +9,7 @@ dist
 .env.*
 course-content/*
 !course-content/README.md
+vite.config.js
+vite.config.d.ts
+tailwind.config.js
+tailwind.config.d.ts
