@@ -1,0 +1,363 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --bg: #090c12;
+    --panel: rgba(15, 19, 28, 0.84);
+    --panel-solid: #121824;
+    --line: rgba(255, 255, 255, 0.1);
+    --text: #f8f5ef;
+    --soft: #dde2ec;
+    --muted: #9ea8ba;
+    --accent: #f4a261;
+    --accent-soft: rgba(244, 162, 97, 0.18);
+    --success: #9ed7b4;
+    --danger: #ff9b92;
+    --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    --shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #ffffff;
+    --panel: rgba(255, 255, 255, 0.95);
+    --panel-solid: #f6f4ef;
+    --line: rgba(17, 17, 17, 0.12);
+    --text: #111111;
+    --soft: #1a1a1a;
+    --muted: #5e6774;
+    --accent: #c56a11;
+    --accent-soft: rgba(197, 106, 17, 0.12);
+    --success: #347a55;
+    --danger: #c24141;
+    --shadow: 0 24px 70px rgba(15, 23, 42, 0.08);
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 14% 12%, rgba(244, 162, 97, 0.18), transparent 30%),
+      radial-gradient(circle at 84% 12%, rgba(104, 190, 216, 0.12), transparent 24%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.03), transparent 40%);
+  }
+
+  :root[data-theme="light"] body::before {
+    background:
+      linear-gradient(rgba(17, 17, 17, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(17, 17, 17, 0.02) 1px, transparent 1px),
+      radial-gradient(circle at 14% 12%, rgba(197, 106, 17, 0.05), transparent 28%);
+    background-size: 36px 36px, 36px 36px, auto;
+  }
+
+  * {
+    box-sizing: border-box;
+    scrollbar-color: color-mix(in srgb, var(--muted) 50%, transparent) transparent;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 40%, white 10%);
+    color: var(--text);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--muted) 45%, transparent);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-family: var(--font-display);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  code {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-soft) 75%, transparent);
+    padding: 0.18rem 0.5rem;
+    font-size: 0.95em;
+  }
+}
+
+@layer components {
+  .app-frame {
+    @apply relative flex h-full overflow-hidden;
+  }
+
+  .surface-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: 28px;
+    backdrop-filter: blur(18px);
+  }
+
+  .section-label {
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .hero-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 36px;
+    padding: 2rem;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 90%, transparent), transparent 55%),
+      var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  .hero-glow {
+    position: absolute;
+    right: -8%;
+    top: -12%;
+    width: 260px;
+    height: 260px;
+    border-radius: 999px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent) 40%, transparent), transparent 66%);
+    filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .brand-switch {
+    @apply flex items-center justify-between gap-4 rounded-[28px] border p-4 text-left transition;
+    border-color: var(--line);
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  .brand-switch:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  }
+
+  .brand-switch-mobile {
+    @apply px-4 py-3;
+    min-width: fit-content;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 rounded-[18px] border px-4 py-3 text-sm font-medium transition;
+    border-color: transparent;
+    color: var(--muted);
+  }
+
+  .nav-item:hover,
+  .nav-item.is-active {
+    border-color: var(--line);
+    background: var(--panel-solid);
+    color: var(--text);
+  }
+
+  .mobile-nav-item {
+    @apply flex min-h-16 flex-col items-center justify-center gap-1 rounded-[18px] border px-2 py-2 text-[11px] font-medium transition;
+    border-color: var(--line);
+    color: var(--muted);
+    background: var(--panel);
+  }
+
+  .mobile-nav-item.is-active {
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  }
+
+  .status-pill {
+    @apply rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.18em];
+    border-color: var(--line);
+    color: var(--muted);
+  }
+
+  .status-pill.is-live {
+    color: var(--success);
+    border-color: color-mix(in srgb, var(--success) 60%, var(--line));
+    background: color-mix(in srgb, var(--success) 12%, transparent);
+  }
+
+  .primary-action {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-semibold transition;
+    color: #111;
+    background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 90%, white 10%), color-mix(in srgb, var(--accent) 72%, white 28%));
+  }
+
+  .primary-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 36px color-mix(in srgb, var(--accent) 26%, transparent);
+  }
+
+  :root[data-theme="light"] .primary-action {
+    color: white;
+  }
+
+  .secondary-action {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition;
+    border-color: var(--line);
+    color: var(--text);
+    background: transparent;
+  }
+
+  .secondary-action:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+    background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+  }
+
+  .pill-button {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] transition;
+    border-color: var(--line);
+    color: var(--muted);
+    background: transparent;
+  }
+
+  .pill-button:hover,
+  .pill-button.is-active {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+    background: color-mix(in srgb, var(--accent-soft) 60%, transparent);
+    color: var(--text);
+  }
+
+  .icon-action {
+    @apply inline-flex items-center justify-center gap-2 rounded-[18px] border px-3 py-2.5 text-sm font-medium transition;
+    border-color: var(--line);
+    color: var(--text);
+  }
+
+  .icon-action:hover {
+    border-color: color-mix(in srgb, var(--accent) 38%, var(--line));
+    background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+  }
+
+  .search-shell {
+    @apply flex items-center gap-3 rounded-full border px-4 py-3;
+    border-color: var(--line);
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  .search-input {
+    @apply w-full bg-transparent text-sm outline-none;
+    color: var(--text);
+  }
+
+  .search-input::placeholder {
+    color: var(--muted);
+  }
+
+  .search-results {
+    @apply absolute left-0 right-0 top-[calc(100%+0.5rem)] z-30 space-y-2 rounded-[24px] border p-3 shadow-2xl;
+    border-color: var(--line);
+    background: var(--panel);
+    backdrop-filter: blur(18px);
+  }
+
+  .search-result-row {
+    @apply w-full rounded-[18px] border px-4 py-3 text-left transition;
+    border-color: transparent;
+  }
+
+  .search-result-row:hover {
+    border-color: var(--line);
+    background: var(--panel-solid);
+  }
+
+  .library-row {
+    @apply w-full rounded-[22px] border p-4 text-left transition;
+    border-color: var(--line);
+    background: transparent;
+  }
+
+  .library-row:hover,
+  .library-row.is-selected {
+    border-color: color-mix(in srgb, var(--accent) 38%, var(--line));
+    background: color-mix(in srgb, var(--accent-soft) 52%, transparent);
+  }
+
+  .empty-panel {
+    @apply flex h-full min-h-[520px] flex-col items-center justify-center rounded-[36px] border px-8 py-12 text-center;
+    border-color: var(--line);
+    background: var(--panel);
+    box-shadow: var(--shadow);
+  }
+
+  .flashcard-shell {
+    @apply block w-full rounded-[32px] border p-8 text-left transition;
+    border-color: var(--line);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 75%, transparent), transparent 55%),
+      var(--panel-solid);
+  }
+
+  .flashcard-shell:hover {
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+    transform: translateY(-1px);
+  }
+
+  .game-choice {
+    @apply w-full rounded-[18px] border px-4 py-3 text-left text-sm leading-7 transition;
+    border-color: var(--line);
+    color: var(--text);
+    background: transparent;
+  }
+
+  .game-choice:hover:not(:disabled) {
+    border-color: color-mix(in srgb, var(--accent) 36%, var(--line));
+    background: color-mix(in srgb, var(--accent-soft) 55%, transparent);
+  }
+
+  .game-choice:disabled {
+    cursor: default;
+  }
+
+  .game-choice.is-correct {
+    border-color: color-mix(in srgb, var(--success) 62%, var(--line));
+    background: color-mix(in srgb, var(--success) 14%, transparent);
+  }
+
+  .game-choice.is-wrong {
+    border-color: color-mix(in srgb, var(--danger) 62%, var(--line));
+    background: color-mix(in srgb, var(--danger) 12%, transparent);
+  }
+
+  .app-scroll {
+    scroll-behavior: smooth;
+  }
+}
